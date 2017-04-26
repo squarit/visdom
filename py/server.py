@@ -29,6 +29,7 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket
 import tornado.escape
+import tornado.httpserver
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -424,7 +425,9 @@ class ErrorHandler(BaseHandler):
 def main():
     print("It's Alive!")
     app = Application()
-    app.listen(FLAGS.port, max_buffer_size=1024 ** 3)
+    http_server = tornado.httpserver.HTTPServer(app, xheaders=True,
+                                                max_buffer_size=1024 ** 3)
+    http_server.listen(FLAGS.port)
     ioloop.IOLoop.instance().start()
     logging.info("Application Started")
 

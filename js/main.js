@@ -143,7 +143,7 @@ class App extends React.Component {
     }
 
     var url = window.location;
-    var socket = new WebSocket('ws://' + url.host + '/socket');
+    var socket = new WebSocket('wss://' + url.host + '/socket');
 
     socket.onmessage = this._handleMessage;
 
